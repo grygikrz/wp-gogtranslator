@@ -165,7 +165,7 @@ class SP_Plugin {
 							//echo '<pre>' . var_export($tag, true) . '</pre>';
 							if ($check_term) {
 									//echo '<pre>' . var_export($check_term, true) . '</pre>';
-									wp_delete_term($tag->id, 'post_tag');
+									wp_delete_term($tag->term_id, 'post_tag');
 									wp_set_post_tags($post->id, $check_term->name, true);
 									//var_dump(wp_update_term($tag->term_id, 'post_tag', array('name' => $check_term->name)));
 								}else{
