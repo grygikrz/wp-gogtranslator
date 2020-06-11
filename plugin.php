@@ -17,7 +17,7 @@ error_reporting(E_ALL);
 
 class SP_Plugin {
 		// set Google Api Key only here
-	static $apiKey = 'AIzaSyBmq68jQfmMoO80wkBTNeFf4HK-E3PKp3c';
+	static $apiKey = '';
 
 	// class instance
 	static $instance;
