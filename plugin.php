@@ -9,9 +9,9 @@ Author: Krzysztof Grygiel
 Author URI:  http://neutronik.pl
 */
 
-//ini_set('display_errors', 1);
-//ini_set('display_startup_errors', 1);
-//error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 
 
@@ -138,11 +138,11 @@ class SP_Plugin {
 		$posts = self::getPosts($how_many);
 		kses_remove_filters();
 		foreach($posts as $post) {
-			if (self::getTranslationInfo($post->post_title) == 'en') {
-				$translated = self::getTranslation($post->post_title);
+			if (self::getTranslationInfo(strtolower($post->post_title)) == 'en') {
+				$translated = self::getTranslation(strtolower($post->post_title));
 				$my_post = array(
 						'ID'         => $post->id,
-						'post_title'   => $translated
+						'post_title'   => ucwords($translated)
 				);
 				wp_update_post( $my_post );
 			}
@@ -158,7 +158,7 @@ class SP_Plugin {
 
 				if ($posttags) {
 				  foreach($posttags as $tag) {
-						if (self::getTranslationInfo($tag->name) == 'en') {
+						if (self::getTranslationInfo(strtolower($tag->name)) == 'en') {
 							$translated = self::getTranslation(strtolower($tag->name));
 							//echo $translated;
 							$check_term = get_term_by( 'name', $translated, 'post_tag' );  //Sprawdzamy czy tag juz podony istNieje
@@ -204,9 +204,19 @@ class SP_Plugin {
 			echo 'Translation over for LIMIT 1000 OFFSET 3001';
 		}
 		if ( ! empty( $_POST["submit5"] == 'Run' ) ) {
-			$how_many = 'OFFSET 4001';
+			$how_many = 'LIMIT 1000 OFFSET 4001';
 	   	self::translateContent($how_many);
-			echo 'Translation over for OFFSET 4001';
+			echo 'Translation over for LIMIT 1000 OFFSET 4001';
+		}
+		if ( ! empty( $_POST["submit6"] == 'Run' ) ) {
+			$how_many = 'LIMIT 1000 OFFSET 5001';
+	   	self::translateContent($how_many);
+			echo 'Translation over for LIMIT 1000 OFFSET 5001';
+		}
+		if ( ! empty( $_POST["submit7"] == 'Run' ) ) {
+			$how_many = 'LIMIT 3000 OFFSET 6001';
+	   	self::translateContent($how_many);
+			echo 'Translation over for LIMIT 3000 OFFSET 6001';
 		}
 		global $wpdb;
 		$sqli = "SELECT count(*) FROM {$wpdb->prefix}posts";
@@ -230,7 +240,9 @@ class SP_Plugin {
 				<p class="submit"><input type="submit" name="submit2" id="submit2" class="button button-primary" value="Run">LIMIT 1000 OFFSET 1001</p>
 				<p class="submit"><input type="submit" name="submit3" id="submit3" class="button button-primary" value="Run">LIMIT 1000 OFFSET 2001</p>
 				<p class="submit"><input type="submit" name="submit4" id="submit4" class="button button-primary" value="Run">LIMIT 1000 OFFSET 3001</p>
-				<p class="submit"><input type="submit" name="submit4" id="submit5" class="button button-primary" value="Run">OFFSET 4001</p>
+				<p class="submit"><input type="submit" name="submit5" id="submit5" class="button button-primary" value="Run">LIMIT 1000 OFFSET 4001</p>
+				<p class="submit"><input type="submit" name="submit6" id="submit6" class="button button-primary" value="Run">LIMIT 1000 OFFSET 5001</p>
+				<p class="submit"><input type="submit" name="submit7" id="submit7" class="button button-primary" value="Run">LIMIT 3000 OFFSET 6001</p>
 			</form></div>
 
 			</div>
