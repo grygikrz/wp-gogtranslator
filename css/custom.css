@@ -1,0 +1,5 @@
+/** layout **/
+
+.form-field.form-required.term-name-wrap select {
+    width: 100%;
+}
