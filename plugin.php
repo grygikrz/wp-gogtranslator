@@ -140,6 +140,9 @@ class SP_Plugin {
 		foreach($posts as $post) {
 			if (self::getTranslationInfo(strtolower($post->post_title)) == 'en') {
 				$translated = self::getTranslation(strtolower($post->post_title));
+				if($translated == '' || $translated == ' '){
+					$translated = $post->post_title;
+				}
 				$my_post = array(
 						'ID'         => $post->id,
 						'post_title'   => ucwords($translated)
